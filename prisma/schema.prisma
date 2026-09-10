@@ -1,0 +1,148 @@
+// Climbix Marketing Agency - Prisma Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  service   String?
+  budget    String?
+  message   String?
+  status    String   @default("new") // new, contacted, qualified, won, lost
+  source    String?  // website, whatsapp, referral, ads
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Client {
+  id          String   @id @default(cuid())
+  name        String
+  company     String
+  email       String
+  phone       String?
+  website     String?
+  industry    String?
+  status      String   @default("active") // active, paused, churned
+  startDate   DateTime @default(now())
+  endDate     DateTime?
+  monthlyFee  Float?
+  logo        String?
+  projects    Project[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  service     String
+  status      String   @default("planning") // planning, in_progress, review, completed, on_hold
+  progress    Int      @default(0)
+  budget      Float?
+  startDate   DateTime @default(now())
+  dueDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  tagline     String
+  description String
+  icon        String?
+  features    String?  // JSON string of features list
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  clientName  String
+  clientTitle String?
+  clientCompany String?
+  avatar      String?
+  rating      Int      @default(5)
+  message     String
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CaseStudy {
+  id          String   @id @default(cuid())
+  title       String
+  category    String
+  clientName  String
+  challenge   String
+  result      String
+  metric1Label String?
+  metric1Value String?
+  metric2Label String?
+  metric2Value String?
+  metric3Label String?
+  metric3Value String?
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TeamMember {
+  id          String   @id @default(cuid())
+  name        String
+  role        String
+  bio         String?
+  avatar      String?
+  email       String?
+  linkedin    String?
+  twitter     String?
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AnalyticsEvent {
+  id          String   @id @default(cuid())
+  type        String   // page_view, lead_created, cta_click, form_submit
+  page        String?
+  metadata    String?  // JSON string
+  createdAt   DateTime @default(now())
+}
