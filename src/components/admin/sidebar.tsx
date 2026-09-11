@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
   LayoutDashboard, Users, FolderKanban, Target, Star, Mail, Settings,
-  Rocket, LogOut, Menu, X, ExternalLink, Bell
+  Rocket, LogOut, Menu, X, ExternalLink, Bell, BookOpen
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +15,9 @@ export type AdminTab =
   | "clients"
   | "projects"
   | "services"
+  | "case-studies"
   | "testimonials"
+  | "blog"
   | "messages"
   | "settings";
 
@@ -33,7 +35,9 @@ const navItems: { id: AdminTab; label: string; icon: any }[] = [
   { id: "clients", label: "Clients", icon: Users },
   { id: "projects", label: "Projects", icon: FolderKanban },
   { id: "services", label: "Services", icon: Settings },
+  { id: "case-studies", label: "Case Studies", icon: FolderKanban },
   { id: "testimonials", label: "Testimonials", icon: Star },
+  { id: "blog", label: "Blog Posts", icon: BookOpen },
   { id: "messages", label: "Messages", icon: Mail },
   { id: "settings", label: "Settings", icon: Settings },
 ];

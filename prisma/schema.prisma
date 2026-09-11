@@ -146,3 +146,27 @@ model AnalyticsEvent {
   metadata    String?  // JSON string
   createdAt   DateTime @default(now())
 }
+
+model BlogPost {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  excerpt         String
+  content         String   // Markdown content
+  contentHtml     String?  // Cached HTML render
+  category        String
+  author          String
+  authorRole      String?
+  image           String?  // Thumbnail image URL
+  metaDescription String?
+  tags            String?  // JSON string of tags array
+  ogImage         String?  // Custom Open Graph image
+  status          String   @default("draft") // draft, published, scheduled
+  scheduledAt     DateTime?
+  featured        Boolean  @default(false)
+  order           Int      @default(0)
+  readTime        String?
+  published       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

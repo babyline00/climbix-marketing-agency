@@ -7,7 +7,9 @@ import { LeadsManager } from "./leads-manager";
 import { ClientsManager } from "./clients-manager";
 import { ProjectsManager } from "./projects-manager";
 import { ServicesManager } from "./services-manager";
+import { CaseStudiesManager } from "./case-studies-manager";
 import { TestimonialsManager } from "./testimonials-manager";
+import { BlogManager } from "./blog-manager";
 import { MessagesManager } from "./messages-manager";
 import { SettingsManager } from "./settings-manager";
 
@@ -39,7 +41,9 @@ export function AdminDashboard() {
         {tab === "clients" && <ClientsManager />}
         {tab === "projects" && <ProjectsManager />}
         {tab === "services" && <ServicesManager />}
+        {tab === "case-studies" && <CaseStudiesManager />}
         {tab === "testimonials" && <TestimonialsManager />}
+        {tab === "blog" && <BlogManager />}
         {tab === "messages" && <MessagesManager />}
         {tab === "settings" && <SettingsManager />}
       </main>
